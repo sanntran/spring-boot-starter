@@ -1,0 +1,6 @@
+{
+    "editor.fontSize": 13,
+    "rest-client.environmentVariables": {
+        "local": {}
+    }
+}

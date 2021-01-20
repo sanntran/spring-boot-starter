@@ -1,0 +1,342 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "${version}",
+    "title": "EROAD Maintenance Service",
+    "description": "EROAD API to access Service for Maintenance"
+  },
+  "tags": [
+    {
+      "name": "Book",
+      "description": "Book resource"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "description": "Create Book",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          }
+        },
+        "operationId": "createBook",
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "description": "Get book by author",
+        "parameters": [],
+        "operationId": "getBooks",
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "put": {
+        "tags": [
+          "Book"
+        ],
+        "description": "Update Book",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          }
+        },
+        "operationId": "updateBook",
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "description": "Delete Book",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "deleteBook",
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "description": "Get book by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "getBook",
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorMessage": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "cause": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorMessage"
+            }
+          }
+        }
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "BookList": {
+        "type": "array",
+        "description": "Book | !UseConstraintValidation | @com.mkyong.error.validator.ValidBook",
+        "items": {
+          "type": "object",
+          "$ref": "#/components/schemas/Book"
+        }
+      },
+      "Book": {
+        "type": "object",
+        "validators": "@com.mkyong.error.validator.ValidBook",
+        "description": "Book | !UseConstraintValidation | @com.mkyong.error.validator.ValidBook",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of preset | @NotNull"
+          },
+          "author": {
+            "description": "Preset context path | @NotNull",
+            "type": "object",
+            "$ref": "#/components/schemas/Author"
+          },
+          "price": {
+            "type": "number",
+            "description": "Book price | @NotNull | @DecimalMin(\"1.00\")"
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/BookType"
+            },
+            "description": "Book type | @MinItem(value=2, type=\"com.mkyong.error.validator.SuperBook\") | @com.mkyong.error.validator.ValidBookType"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/BookCategory"
+            },
+            "description": "Book type | @MinItem(value=5,groups=com.mkyong.error.validator.AuthorCheck.class)"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Book type | @NotAcceptedValue(value=\"anh\")"
+          },
+          "value": {
+            "type": "string",
+            "description": "Book type | @AcceptedValue(value=\"anh\")"
+          },
+          "valuen": {
+            "type": "number",
+            "description": "Book type | @NotAcceptedValue(value=\"1,2,3\")"
+          }
+        }
+      },
+      "Author": {
+        "type": "object",
+        "description": "sd | !UseConstraintValidation | @com.mkyong.error.validator.ValidAuthor",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of preset | @com.mkyong.error.validator.ValidAuthorName(accept=\"ACCSSSNANA\")"
+          }
+        }
+      },
+      "BookType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of preset | @NotNull"
+          }
+        }
+      },
+      "BookCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of category"
+          }
+        }
+      }
+    }
+  }
+}

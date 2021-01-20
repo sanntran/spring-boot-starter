@@ -1,0 +1,41 @@
+###
+GET http://localhost:8080/books/1 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+
+### 
+PUT http://localhost:8080/books/0 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+{
+	"name": "",
+	"author": {"name": "Hihi"},
+    "price": 0.5,
+    "types": [{
+
+    }],
+    "categories": [{
+    }],
+    "value": 4,
+    "values": ["anh"],
+    "valuen": 3
+}
+
+
+### 
+PUT http://localhost:8080/books/1 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+{
+	"name": "Marie Kondo",
+	"author": {"name": "Marie Kondo"},
+    "price": 1,
+    "categories": [{
+    }],
+    "value": 4,
+    "values": ["anhs"],
+    "valuen": 3
+}
