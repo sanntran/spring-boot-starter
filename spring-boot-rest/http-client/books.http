@@ -1,0 +1,59 @@
+###
+GET http://localhost:8080/books/1 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+
+### create invalid book
+PUT http://localhost:8080/books/0 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+{
+	"name": "",
+	"author": {"name": "Hihi"},
+    "price": 0.5,
+    "types": [{
+
+    }],
+    "categories": [{
+    }],
+    "value": 4,
+    "values": ["anh"],
+    "valuen": 3
+}
+
+
+### update valid book
+PUT http://localhost:8080/books/1 HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+
+{
+	"name": "Marie Kondo",
+	"author": {"name": "Marie Kondo"},
+    "price": 1,
+    "categories": [{
+    }],
+    "value": 4,
+    "values": ["anhs"],
+    "valuen": 3
+}
+
+### create valid book
+POST http://localhost:8080/books HTTP/1.1
+Accept:application/json
+Content-Type:application/json
+Authorization: user
+
+{
+  "id": 1,
+  "name": "Marie Kondo",
+  "author": {"name": "Marie Kondo"},
+  "price": 1,
+  "categories": [{
+  }],
+  "value": 4,
+  "values": ["anhs"],
+  "valuen": 3
+}
